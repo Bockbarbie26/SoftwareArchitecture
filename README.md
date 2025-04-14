@@ -2,8 +2,8 @@
 # ADR-001: Tách hệ thống Monolithic thành Microservices
 
 **Status:** Accepted  
-**Date:** 2025-04-14  
-**Author:** [Tên bạn]
+**Date:** 13-04-2025  
+**Author:** DevBluprint Architecture Designer
 
 ---
 
@@ -15,7 +15,7 @@ Hệ thống hiện tại được xây dựng dưới dạng monolithic. Khi c�
 
 ## Decision
 
-Chuyển kiến trúc hệ thống từ monolithic sang microservices.
+Chuyển kiến trúc hệ thống từ **Monolithic** sang **Microservices**.
 
 ---
 
@@ -23,34 +23,21 @@ Chuyển kiến trúc hệ thống từ monolithic sang microservices.
 
 ### 🔧 Lý do kỹ thuật (Technical Justification)
 
-- **Tách biệt trách nhiệm (Separation of Concerns):**  
-  Mỗi service đảm nhận một chức năng riêng biệt, giúp dễ quản lý, bảo trì và phát triển.
+- Giảm coupling giữa các module, giúp phát triển và triển khai độc lập. Monolith thường chứa quá nhiều logic trong một codebase, gây khó khăn trong việc hiểu, phát triển và bảo trì. Với microservices, mỗi service chỉ đảm nhiệm một chức năng rõ ràng, giúp dễ quản lý hơn.
 
-- **Triển khai độc lập (Independent Deployment):**  
-  Mỗi service có thể được triển khai riêng biệt, giảm thời gian build/deploy và giảm rủi ro.
+- Công nghệ linh hoạt, cho phép sử dụng ngôn ngữ, framework khác nhau phù hợp với từng service. (Java cho core logic, Python cho ML, Node.js cho APIs...)
 
-- **Mở rộng theo chiều ngang (Horizontal Scalability):**  
-  Chỉ những service có nhu cầu cao mới cần scale, tiết kiệm tài nguyên.
+- Microservices giúp scale những service có tải cao (như service đặt hàng hoặc tìm tài xế) mà không cần scale cả hệ thống.
 
-- **Công nghệ linh hoạt (Polyglot Tech Stack):**  
-  Cho phép sử dụng ngôn ngữ hoặc framework phù hợp nhất cho từng service.
-
-- **Độ ổn định cao hơn:**  
-  Lỗi ở một service không ảnh hưởng toàn bộ hệ thống.
+- Cho phép triển khai riêng từng phần, giảm downtime, tăng tốc độ triển khai và dễ quản lý.
 
 ### 💼 Lý do kinh doanh (Business Justification)
 
-- **Tăng tốc độ đưa sản phẩm ra thị trường (Time-to-Market):**  
-  Các nhóm có thể phát triển và triển khai nhanh các tính năng nhỏ.
+- Tăng tốc độ đưa tính năng mới ra thị trường, release nhanh từng chức năng nhỏ mà không phải chờ team khác. Điều này cực kỳ quan trọng trong thị trường cạnh tranh như giao đồ ăn.
 
-- **Dễ mở rộng nhóm phát triển:**  
-  Cho phép tổ chức thành nhiều nhóm nhỏ làm việc song song hiệu quả hơn.
+- Tăng độ tin cậy: lỗi ở 1 service không làm gián đoạn toàn hệ thống. Giảm chi phí sửa lỗi và bảo trì hệ thống.
 
-- **Giảm thiểu rủi ro triển khai:**  
-  Một lỗi khi deploy chỉ ảnh hưởng một phần hệ thống.
-
-- **Tối ưu chi phí vận hành:**  
-  Scale theo nhu cầu thực tế giúp tiết kiệm tài nguyên.
+- Hỗ trợ tốt cho mô hình DevOps và phát triển theo mô hình tổ chức linh hoạt (Scrum team,...)
 
 ---
 
@@ -59,20 +46,19 @@ Chuyển kiến trúc hệ thống từ monolithic sang microservices.
 ### ✅ Tích cực
 
 - Dễ bảo trì, dễ mở rộng, triển khai nhanh.
-- Tăng độ ổn định của hệ thống.
-- Hỗ trợ phát triển nhanh và phân tán.
+- Tăng độ ổn định của hệ thống và dễ bảo trì.
 
 ### ❌ Tiêu cực
 
 - Tăng độ phức tạp: cần thêm công cụ quản lý, theo dõi, giao tiếp giữa service.
-- Yêu cầu CI/CD mạnh và kinh nghiệm DevOps.
+- Cần áp dụng tốt CI/CD và DevOps .
 
 ---
 
 ## Alternatives
 
 - **Giữ nguyên kiến trúc monolithic:**  
-  Không giải quyết được vấn đề về mở rộng và triển khai.
+  Không giải quyết được vấn đề scale độc lập và triển khai.
 
 - **Chuyển sang modular monolith:**  
   Dễ triển khai hơn microservices nhưng vẫn bị giới hạn về scale và triển khai độc lập.
